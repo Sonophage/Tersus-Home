@@ -1,5 +1,17 @@
-
-# 🧬 Tush — Tersus Universal Shell Helper
+░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓███████▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓████████▓▒░ 
+░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░    ░▒▓██████▓▒░░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░ 
+                                              
+💠 Tush: Tersus Universal Shell Helper
+--------------------------------------
+Created by sonophage — for clarity, ritual, and shell-based serenity.
+GitHub: https://github.com/sonophage/tush
+Tush creates a clean modular home in ~/tersus and manages your configs via GNU Stow.
+Every action is tracked and reversible. Use it when you want your environment to breathe.
 
 **Tush** is a modular shell script that manages a clean, deliberate, and reversible Linux home environment using GNU Stow.  
 It was built to serve creators, minimalists, and neurodivergent thinkers who crave clarity, order, and control in their workspace.
