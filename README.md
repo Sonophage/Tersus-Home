@@ -43,7 +43,6 @@ All standard folders live inside your `tersus` directory and are symlinked to `$
 
 ```bash
 git clone https://github.com/sonophage/Tersus-Home.git
-cd tersus
 chmod +x tersushome.sh
 ./tersushome.sh
 ```
