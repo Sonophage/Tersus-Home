@@ -42,10 +42,10 @@ All standard folders live inside your `tersus` directory and are symlinked to `$
 ## Installation
 
 ```bash
-git clone https://github.com/sonophage/tersus.git
+git clone https://github.com/sonophage/Tersus-Home.git
 cd tersus
-chmod +x clean_homebase_setup.sh
-./clean_homebase_setup.sh
+chmod +x tersushome.sh
+./tersushome.sh
 ```
 
 ---
