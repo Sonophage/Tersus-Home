@@ -1,5 +1,5 @@
 
-# 🧬 Project: Tersus Home
+# Project: Tersus Home
 
 **Tersus** — Latin for *clean*, *neat*, or *pure* — is a modular system for creating a minimal, version-controlled Linux `$HOME` environment using [GNU Stow](https://www.gnu.org/software/stow/).
 
