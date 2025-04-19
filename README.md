@@ -7,7 +7,7 @@ Built for creators, neurodivergent users, and minimalists who value clarity over
 
 ---
 
-## 📁 Structure
+## Structure
 
 ```
 /home/yourname/tersus
@@ -29,7 +29,7 @@ All standard folders live inside your `tersus` directory and are symlinked to `$
 
 ---
 
-## 🚀 Features
+## Features
 
 - Auto-detects Linux/macOS
 - Installs GNU Stow if missing
@@ -39,7 +39,7 @@ All standard folders live inside your `tersus` directory and are symlinked to `$
 
 ---
 
-## 📦 Installation
+## Installation
 
 ```bash
 git clone https://github.com/sonophage/tersus.git
@@ -50,13 +50,13 @@ chmod +x clean_homebase_setup.sh
 
 ---
 
-## 🧠 Reusable Workflow
+## Reusable Workflow
 
 You can run the script again anytime to move and stow additional config directories. It will only update what you give it.
 
 ---
 
-## 🧰 Stow Installer Logic
+## Stow Installer Logic
 
 This script supports:
 
@@ -76,6 +76,6 @@ fi
 
 ---
 
-## 🖤 License
+## License
 
 MIT — share it, remix it, keep it clean.
