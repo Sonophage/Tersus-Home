@@ -17,7 +17,7 @@ function print_banner() {
 ░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
 ░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
 ░▒▓█▓▒░    ░▒▓██████▓▒░░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░ 
-                                              
+
 # 💠 Tush: Tersus Universal Shell Helper
 # --------------------------------------
 # Created by cvltik — for clarity, ritual, and shell-based serenity.
@@ -28,14 +28,19 @@ EOF
   echo
 }
 
-log_action "Tush started on $(date)"
+print_banner
+
+CONFIG_DIR="$HOME/.config/tersus"
+CONFIG_FILE="$CONFIG_DIR/tersus-home.conf"
+LOG_FILE="$CONFIG_DIR/tush.log"
+
+mkdir -p "$CONFIG_DIR"
 
 function log_action() {
   echo "$1" | tee -a "$LOG_FILE"
 }
 
 function install_stow() {
-  print_banner
   echo "🔍 Checking for GNU Stow..."
   if ! command -v stow &>/dev/null; then
     echo "❌ GNU Stow not found. Installing..."
@@ -82,14 +87,26 @@ function setup_clean_home() {
 
 function list_dotfiles() {
   echo "📂 Available configs in ~/.config:"
-  ls -1 ~/.config | nl
+  mapfile -t DOTFILES_LIST < <(ls -1 ~/.config)
+  for i in "${!DOTFILES_LIST[@]}"; do
+    printf "[%2d] %s\n" "$((i+1))" "${DOTFILES_LIST[$i]}"
+  done
+
+  echo
+  read -rp "Select dotfiles to stow by number (space-separated): " -a SELECTIONS
+  DOTFILES=()
+  for i in "${SELECTIONS[@]}"; do
+    INDEX=$((i-1))
+    if [[ -n "${DOTFILES_LIST[$INDEX]}" ]]; then
+      DOTFILES+=("${DOTFILES_LIST[$INDEX]}")
+    fi
+  done
+
+  echo "DOTFILES=("${DOTFILES[@]}")" >> "$CONFIG_FILE"
 }
 
 function stow_dotfiles() {
   list_dotfiles
-  read -rp "Enter the names of the configs you want to stow (space-separated): " -a DOTFILES
-  echo "DOTFILES=(\"${DOTFILES[@]}\")" >> "$CONFIG_FILE"
-
   for name in "${DOTFILES[@]}"; do
     SRC="$HOME/.config/$name"
     DST="$CLEAN_HOME/.dotfiles/$name/.config/$name"
@@ -105,7 +122,7 @@ function add_alias() {
   ALIAS_LINE="alias $ALIAS_NAME='cd $CLEAN_HOME'"
 
   echo "ALIAS_NAME=$ALIAS_NAME" >> "$CONFIG_FILE"
-  echo "ALIAS_LINE=\"$ALIAS_LINE\"" >> "$CONFIG_FILE"
+  echo "ALIAS_LINE="$ALIAS_LINE"" >> "$CONFIG_FILE"
 
   SHELL_NAME=$(basename "$SHELL")
   case "$SHELL_NAME" in
@@ -158,8 +175,7 @@ function print_help() {
   echo "  --reset         Fully remove all symlinks and delete the clean home"
   echo "  No args         Launch interactive menu"
 }
-# CLI parser
-print_banner
+
 case "$1" in
   --add) install_stow; source "$CONFIG_FILE"; stow_dotfiles ;;
   --rollback) rollback_all ;;
