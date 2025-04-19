@@ -8,11 +8,34 @@ LOG_FILE="$CONFIG_DIR/tush.log"
 
 mkdir -p "$CONFIG_DIR"
 
+function print_banner() {
+  cat << "EOF"
+░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓███████▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓████████▓▒░ 
+░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░    ░▒▓██████▓▒░░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░ 
+                                              
+# 💠 Tush: Tersus Universal Shell Helper
+# --------------------------------------
+# Created by cvltik — for clarity, ritual, and shell-based serenity.
+# GitHub: https://github.com/sonophage/tush
+# Tush creates a clean modular home in ~/tersus and manages your configs via GNU Stow.
+# Every action is tracked and reversible. Use it when you want your environment to breathe.
+EOF
+  echo
+}
+
+log_action "Tush started on $(date)"
+
 function log_action() {
   echo "$1" | tee -a "$LOG_FILE"
 }
 
 function install_stow() {
+  print_banner
   echo "🔍 Checking for GNU Stow..."
   if ! command -v stow &>/dev/null; then
     echo "❌ GNU Stow not found. Installing..."
@@ -135,8 +158,8 @@ function print_help() {
   echo "  --reset         Fully remove all symlinks and delete the clean home"
   echo "  No args         Launch interactive menu"
 }
-
 # CLI parser
+print_banner
 case "$1" in
   --add) install_stow; source "$CONFIG_FILE"; stow_dotfiles ;;
   --rollback) rollback_all ;;
