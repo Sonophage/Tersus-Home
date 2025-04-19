@@ -9,7 +9,7 @@
 💠 Tush: Tersus Universal Shell Helper
 --------------------------------------
 Created by sonophage — for clarity, ritual, and shell-based serenity.
-GitHub: https://github.com/sonophage/tush
+GitHub: https://github.com/sonophage/tersus-home
 Tush creates a clean modular home in ~/tersus and manages your configs via GNU Stow.
 Every action is tracked and reversible. Use it when you want your environment to breathe.
 
@@ -123,9 +123,6 @@ You always know what happened and when.
 This project was born from the need to **reclaim personal space** in Linux.  
 Not just to dotfile — but to **ritualize the environment**.  
 A home folder should feel like a sanctuary. Tush gives you a way to **build that sanctuary** — and remove it just as cleanly.
-
-Built with thoughtfulness by [@cvltik](https://github.com/cvltik), with the idea that our tools should reflect our minds.
-
 ---
 
 ## 📄 License
