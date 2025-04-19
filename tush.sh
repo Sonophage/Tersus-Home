@@ -20,8 +20,8 @@ function print_banner() {
 
 # 💠 Tush: Tersus Universal Shell Helper
 # --------------------------------------
-# Created by cvltik — for clarity, ritual, and shell-based serenity.
-# GitHub: https://github.com/sonophage/tush
+# Created by sonophage — for clarity, ritual, and shell-based serenity.
+# GitHub: https://github.com/sonophage/tersus-home
 # Tush creates a clean modular home in ~/tersus and manages your configs via GNU Stow.
 # Every action is tracked and reversible. Use it when you want your environment to breathe.
 EOF
