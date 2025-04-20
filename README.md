@@ -62,6 +62,49 @@ Short for **Tersus Universal Shell Helper** — and a little playful.
    ./tush --alias      # show the shell alias for quick access
    ./tush --help       # usage guide
    ```
+---
+
+## 🐠 **How to make `tush` a real command in Fish**
+
+### ✅ 1. **Move the script somewhere permanent**
+put the `tush.sh` script in a directory you control, like:
+
+```bash
+mkdir -p ~/.local/bin
+mv /path/to/tush.sh ~/.local/bin/tush
+chmod +x ~/.local/bin/tush
+```
+
+### ✅ 2. **Add that directory to your `$PATH`**
+Fish uses a different way to handle `$PATH`.
+
+To add `~/.local/bin` to your `PATH` **permanently** in Fish:
+
+```fish
+set -U fish_user_paths $fish_user_paths ~/.local/bin
+```
+
+> now you can run `tush` from anywhere.
+
+---
+
+### ✅ 3. (Optional) **Confirm it works**
+
+```bash
+which tush
+```
+
+should return:
+```
+~/.local/bin/tush
+```
+
+and then:
+```bash
+tush --help
+```
+
+should show your CLI menu.
 
 ---
 
