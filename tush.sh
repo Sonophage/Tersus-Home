@@ -196,4 +196,33 @@ function main_menu() {
   fi
 }
 
-main_menu
+# Parse CLI arguments if present
+case "$1" in
+  --add)
+    install_stow
+    source "$CONFIG_FILE"
+    stow_dotfiles
+    ;;
+  --rollback)
+    rollback_all
+    ;;
+  --reset)
+    reset_tersus
+    ;;
+  --alias)
+    show_alias
+    ;;
+  --help|-h)
+    echo "Usage: tush [--add] [--rollback] [--reset] [--alias] [--help]"
+    echo
+    echo "  --add           Add new dotfiles to stow"
+    echo "  --rollback      Undo all stowed dotfiles"
+    echo "  --reset         Remove all symlinks, dotfiles, and clean home"
+    echo "  --alias         Show alias to cd into your clean home"
+    echo "  --help          Show this message"
+    echo "  (no args)       Launch the interactive menu"
+    ;;
+  *)
+    main_menu
+    ;;
+esac
