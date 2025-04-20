@@ -1,4 +1,4 @@
-#!/bin/bash
+p#!/bin/bash
 
 set -e
 
@@ -21,20 +21,12 @@ function print_banner() {
 # 💠 Tush: Tersus Universal Shell Helper
 # --------------------------------------
 # Created by sonophage — for clarity, ritual, and shell-based serenity.
-# GitHub: https://github.com/sonophage/tersus-home
+# GitHub: https://github.com/sonophage/tush
 # Tush creates a clean modular home in ~/tersus and manages your configs via GNU Stow.
-# Every action is tracked and reversible. Use it when you want your environment to breathe.
+# Every action is tracked and reversible.
 EOF
   echo
 }
-
-print_banner
-
-CONFIG_DIR="$HOME/.config/tersus"
-CONFIG_FILE="$CONFIG_DIR/tersus-home.conf"
-LOG_FILE="$CONFIG_DIR/tush.log"
-
-mkdir -p "$CONFIG_DIR"
 
 function log_action() {
   echo "$1" | tee -a "$LOG_FILE"
@@ -102,7 +94,7 @@ function list_dotfiles() {
     fi
   done
 
-  echo "DOTFILES=("${DOTFILES[@]}")" >> "$CONFIG_FILE"
+  echo "DOTFILES=(${DOTFILES[@]})" >> "$CONFIG_FILE"
 }
 
 function stow_dotfiles() {
@@ -117,21 +109,31 @@ function stow_dotfiles() {
   done
 }
 
-function add_alias() {
+function ask_alias_choice() {
   read -rp "🔗 What alias should be created for accessing your clean home? (e.g., cdtersus): " ALIAS_NAME
   ALIAS_LINE="alias $ALIAS_NAME='cd $CLEAN_HOME'"
-
   echo "ALIAS_NAME=$ALIAS_NAME" >> "$CONFIG_FILE"
-  echo "ALIAS_LINE="$ALIAS_LINE"" >> "$CONFIG_FILE"
+  echo "ALIAS_LINE=\"$ALIAS_LINE\"" >> "$CONFIG_FILE"
+  echo "CONF_ALIAS=alias edittersus='nvim $CONFIG_FILE'" >> "$CONFIG_FILE"
 
-  SHELL_NAME=$(basename "$SHELL")
-  case "$SHELL_NAME" in
-    zsh) echo "$ALIAS_LINE" >> "$HOME/.zshrc" ;;
-    bash) echo "$ALIAS_LINE" >> "$HOME/.bashrc" ;;
-    fish) echo "alias $ALIAS_NAME 'cd $CLEAN_HOME'" >> "$HOME/.config/fish/config.fish" ;;
-    *) echo "Could not detect supported shell for alias injection." ;;
-  esac
-  log_action "Alias $ALIAS_NAME added to $SHELL_NAME config."
+  echo -e "\nWould you like to:\n[1] Inject alias into your shell config\n[2] Just print the aliases to copy yourself"
+  read -rp "Choice: " inject_choice
+
+  if [[ "$inject_choice" == "1" ]]; then
+    SHELL_NAME=$(basename "$SHELL")
+    case "$SHELL_NAME" in
+      zsh) echo "$ALIAS_LINE" >> "$HOME/.zshrc"; echo "alias edittersus='nvim $CONFIG_FILE'" >> "$HOME/.zshrc" ;;
+      bash) echo "$ALIAS_LINE" >> "$HOME/.bashrc"; echo "alias edittersus='nvim $CONFIG_FILE'" >> "$HOME/.bashrc" ;;
+      fish) echo "alias $ALIAS_NAME 'cd $CLEAN_HOME'" >> "$HOME/.config/fish/config.fish"
+            echo "alias edittersus 'nvim $CONFIG_FILE'" >> "$HOME/.config/fish/config.fish" ;;
+      *) echo "Could not detect supported shell for alias injection." ;;
+    esac
+    echo "✅ Aliases added to your shell config"
+  else
+    echo "Here are your aliases to add manually:"
+    echo "$ALIAS_LINE"
+    echo "alias edittersus='nvim $CONFIG_FILE'"
+  fi
 }
 
 function show_alias() {
@@ -167,21 +169,31 @@ function reset_tersus() {
   fi
 }
 
-function print_help() {
-  echo "Usage: tush [--add] [--rollback] [--alias] [--reset]"
-  echo "  --add           Add new dotfiles to stow"
-  echo "  --rollback      Undo all stowed dotfiles"
-  echo "  --alias         Show the shell alias for cdting into the clean home"
-  echo "  --reset         Fully remove all symlinks and delete the clean home"
-  echo "  No args         Launch interactive menu"
+function main_menu() {
+  print_banner
+  if [ -f "$CONFIG_FILE" ]; then
+    echo "Welcome back to Tush 🌒"
+    echo -e "What would you like to do?\n"
+    echo "[1] Add new dotfiles"
+    echo "[2] Rollback changes"
+    echo "[3] Reset everything"
+    echo "[4] Show shell alias"
+    echo "[e] Exit"
+    read -rp "Choice: " choice
+    case $choice in
+      1) install_stow; source "$CONFIG_FILE"; stow_dotfiles ;;
+      2) rollback_all ;;
+      3) reset_tersus ;;
+      4) show_alias ;;
+      e|E|q|Q) echo "🕊️  Exiting..."; exit 0 ;;
+      *) echo "❌ Invalid choice"; exit 1 ;;
+    esac
+  else
+    install_stow
+    setup_clean_home
+    stow_dotfiles
+    ask_alias_choice
+  fi
 }
 
-case "$1" in
-  --add) install_stow; source "$CONFIG_FILE"; stow_dotfiles ;;
-  --rollback) rollback_all ;;
-  --alias) show_alias ;;
-  --reset) reset_tersus ;;
-  ""|--menu) install_stow; setup_clean_home; stow_dotfiles; add_alias ;;
-  --help|-h) print_help ;;
-  *) echo "Unknown option: $1"; print_help ;;
-esac
+main_menu
