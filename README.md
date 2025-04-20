@@ -56,11 +56,11 @@ Short for **Tersus Universal Shell Helper** — and a little playful.
 
 2. On later runs, use:
    ```bash
-   tush --add        # add new dotfiles to stow
-   tush --rollback   # rollback all dotfiles
-   tush --reset      # full teardown
-   tush --alias      # show the shell alias for quick access
-   tush --help       # usage guide
+   ./tush --add        # add new dotfiles to stow
+   ./tush --rollback   # rollback all dotfiles
+   ./tush --reset      # full teardown
+   ./tush --alias      # show the shell alias for quick access
+   ./tush --help       # usage guide
    ```
 
 ---
