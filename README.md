@@ -64,7 +64,7 @@ Short for **Tersus Universal Shell Helper** — and a little playful.
    ```
 ---
 
-## 🐠 **How to make `tush` a real command in Fish**
+## 🐠 **How to make `tush` a real command in Fish (Its what I use)**
 
 ### ✅ 1. **Move the script somewhere permanent**
 put the `tush.sh` script in a directory you control, like:
