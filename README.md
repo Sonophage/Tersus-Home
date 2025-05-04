@@ -36,7 +36,7 @@ A powerful and flexible dotfiles management system that helps you maintain a cle
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/tush.git
+   git clone git@github.com:Sonophage/Tersus-Home.git
    ```
 
 2. Make the script executable:
