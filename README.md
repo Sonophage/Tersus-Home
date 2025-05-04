@@ -6,168 +6,159 @@
 ░▒▓█▓▒░   ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
 ░▒▓█▓▒░    ░▒▓██████▓▒░░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░ 
                                               
-💠 Tush: Tersus Universal Shell Helper
---------------------------------------
-Created by sonophage — for clarity, ritual, and shell-based serenity.
-GitHub: https://github.com/sonophage/tersus-home
-Tush creates a clean modular home in ~/tersus and manages your configs via GNU Stow.
-Every action is tracked and reversible. Use it when you want your environment to breathe.
+# 💠 Tush: Tersus Universal Shell Helper
 
-**Tush** is a modular shell script that manages a clean, deliberate, and reversible Linux home environment using GNU Stow.  
-It was built to serve creators, minimalists, and neurodivergent thinkers who crave clarity, order, and control in their workspace.
+A powerful and flexible dotfiles management system that helps you maintain a clean home directory and manage your configuration files efficiently.
 
----
+## 🌟 Features
 
-## 🌌 The Meaning
+- **Clean Home Management**: Organize your home directory with a modular structure
+- **Dotfiles Management**: Manage configuration files using GNU Stow
+- **Git Integration**: Version control your dotfiles with optional remote repository
+- **Backup System**: Automatic backups before major changes
+- **Rollback Support**: Easily undo changes and restore previous states
+- **Cross-Shell Support**: Works with bash, zsh, and fish
+- **Interactive Setup**: User-friendly interface for all operations
+- **Dry Run Mode**: Preview changes before applying them
 
-### 🔹 Tersus
-From Latin, meaning *clean*, *pure*, or *neat* — a guiding principle for this project.  
-Tersus is the name of the curated home folder (`~/tersus` or a custom name) that acts as your **clean digital sanctuary**.
+## 📋 Prerequisites
 
-### 🔹 Tush
-Short for **Tersus Universal Shell Helper** — and a little playful.  
-`tush` is your command line companion to manage, update, and undo your clean home setup.
+- GNU Stow
+- Git
+- A Unix-like operating system (Linux, macOS, etc.)
+- One of the following package managers:
+  - pacman (Arch Linux)
+  - apt (Debian/Ubuntu)
+  - dnf (Fedora)
+  - zypper (openSUSE)
 
----
+## 🚀 Installation
 
-## 📁 What It Does
-
-### 🛠 Core Features
-
-- 🧠 **OS-aware**: installs GNU Stow if not found
-- 🏡 **Creates a clean home** (`~/tersus`) with symlinks to `~/Documents`, `~/Downloads`, etc.
-- 📂 **Moves & stows dotfiles** using GNU Stow (e.g. `fish`, `nvim`, `kitty`)
-- 📝 **Tracks everything** in `~/.config/tersus/tersus-home.conf` and `tush.log`
-- 🔗 **Injects a custom alias** into your shell to jump to your clean home
-- 🔁 **Offers rollback & full reset** of all changes
-- 🧑‍💻 **CLI-based or interactive menu** for flexibility and ease
-
----
-
-## ⚙️ How It Works
-
-1. Run `tush` with no arguments:
-   - Asks you what to name your clean home
-   - Creates symlinks from your original folders (e.g. `~/Documents`) to `~/tersus/Documents`
-   - Displays available dotfiles in `~/.config` for selection
-   - Moves selected dotfiles into `~/<clean-home>/.dotfiles/<name>/.config/<name>`
-   - Uses `stow` to symlink them back
-   - Logs all actions to a config file
-
-2. On later runs, use:
+1. Clone this repository:
    ```bash
-   ./tush --add        # add new dotfiles to stow
-   ./tush --rollback   # rollback all dotfiles
-   ./tush --reset      # full teardown
-   ./tush --alias      # show the shell alias for quick access
-   ./tush --help       # usage guide
+   git clone https://github.com/yourusername/tush.git
    ```
----
 
-## 🐠 **How to make `tush` a real command in Fish (Its what I use)**
+2. Make the script executable:
+   ```bash
+   chmod +x tush.sh
+   ```
 
-### ✅ 1. **Move the script somewhere permanent**
-put the `tush.sh` script in a directory you control, like:
+3. Run the script:
+   ```bash
+   ./tush.sh
+   ```
 
-```bash
-mkdir -p ~/.local/bin
-mv /path/to/tush.sh ~/.local/bin/tush
-chmod +x ~/.local/bin/tush
-```
+## 🎯 Usage
 
-### ✅ 2. **Add that directory to your `$PATH`**
-Fish uses a different way to handle `$PATH`.
+### First Run
 
-To add `~/.local/bin` to your `PATH` **permanently** in Fish:
+On first run, Tush will:
+1. Set up a clean home directory
+2. Create a dotfiles repository
+3. Scan for existing configuration files
+4. Set up symlinks without moving files
+5. Optionally set up a remote repository
+6. Create useful aliases
 
-```fish
-set -U fish_user_paths $fish_user_paths ~/.local/bin
-```
+### Subsequent Runs
 
-> now you can run `tush` from anywhere.
+The main menu provides these options:
+- Add new dotfiles
+- Rollback changes
+- Check current setup
+- Manage aliases
+- Update remote repository
+- Restore from backup
+- Create backup
 
----
+### Managing Dotfiles
 
-### ✅ 3. (Optional) **Confirm it works**
+Tush uses GNU Stow to manage dotfiles, which means:
+- Original files stay in place
+- Symlinks are created automatically
+- Easy to add/remove configurations
+- Clean organization structure
 
-```bash
-which tush
-```
+### Backup and Restore
 
-should return:
-```
-~/.local/bin/tush
-```
+Tush automatically:
+- Creates backups before major changes
+- Stores backups in `~/.config/tersus/backups`
+- Allows easy restoration of previous states
+- Tracks all symlinks for clean rollback
 
-and then:
-```bash
-tush --help
-```
+## 🔧 Configuration
 
-should show your CLI menu.
+Configuration is stored in `~/.config/tersus/`:
+- `tersus-home.conf`: Main configuration file
+- `tush.log`: Operation log
+- `README.md`: Generated documentation
+- `symlinks.txt`: Symlink tracking
+- `backups/`: Backup directory
 
----
+## 🛠️ Customization
 
-## 📦 Example Setup
+### Aliases
 
-```bash
-$ tush
-📦 What should the name of your clean home directory be? tersus
-📂 Available configs in ~/.config:
-1  fish
-2  nvim
-3  kitty
-Enter the names of the configs you want to stow (space-separated): fish nvim
-🔗 What alias should be created? cdtersus
-```
+Tush sets up these aliases by default:
+- `tush`: Run the Tush script
+- `cdtersus`: Navigate to clean home
+- `edittersus`: Edit Tush configuration
 
-This creates:
+### Clean Home Structure
 
-```
-~/.config/tersus/tersus-home.conf
-~/tersus/
-├── .dotfiles/
-│   ├── fish/.config/fish/
-│   └── nvim/.config/nvim/
-├── Documents -> ~/Documents
-├── Downloads -> ~/Downloads
-...
-```
+The clean home directory includes:
+- Desktop
+- Documents
+- Downloads
+- Music
+- Pictures
+- Public
+- Templates
+- Videos
 
----
+## 🔄 Workflow
 
-## 🔐 Rollback & Reset
+1. **Initial Setup**:
+   ```bash
+   ./tush.sh
+   ```
 
-```bash
-tush --rollback
-```
-Unstows all managed configs and moves them back to their original location.
+2. **Add New Dotfiles**:
+   - Run Tush
+   - Select "Add new dotfiles"
+   - Choose configurations to add
 
-```bash
-tush --reset
-```
-Fully wipes your clean home, config, dotfiles, and logs. Offers a safety prompt.
+3. **Update Remote Repository**:
+   - Run Tush
+   - Select "Update remote repository"
+   - Review changes
+   - Commit and push
 
----
+4. **Rollback Changes**:
+   - Run Tush
+   - Select "Rollback all changes"
+   - Confirm rollback
 
-## 📎 Logging
+## ⚠️ Safety Features
 
-Every action is logged into:
+- Automatic backups before changes
+- Dry run mode for previewing changes
+- Symlink tracking for clean rollback
+- Error handling and logging
+- Dependency checking
 
-- `~/.config/tersus/tersus-home.conf`
-- `~/.config/tersus/tush.log`
+## 🤝 Contributing
 
-You always know what happened and when.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
----
+## 📝 License
 
-## 🖤 Why It Was Created
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-This project was born from the need to **reclaim personal space** in Linux.  
-Not just to dotfile — but to **ritualize the environment**.  
-A home folder should feel like a sanctuary. Tush gives you a way to **build that sanctuary** — and remove it just as cleanly.
----
+## 🙏 Acknowledgments
 
-## 📄 License
-
-MIT — share it, modify it, love it.
+- GNU Stow for the dotfiles management system
+- The Unix/Linux community for inspiration
+- All contributors and users of Tush
