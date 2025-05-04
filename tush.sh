@@ -497,10 +497,10 @@ function setup_aliases() {
     echo "🧩 Set aliases (or leave blank):"
     read -rp "Alias for this script [default: tush]: " alias1
     alias1="${alias1:-tush}"
-    read -rp "Alias to cd clean home [default: cdtersus]: " alias2
-    alias2="${alias2:-cdtersus}"
-    read -rp "Alias to edit config [default: edittersus]: " alias3
-    alias3="${alias3:-edittersus}"
+    read -rp "Alias to cd clean home [default: tgh (acronym for tush go home)]: " alias2
+    alias2="${alias2:-tgh}"
+    read -rp "Alias to edit config [default: tec (acronym for touch edit config) ]: " alias3
+    alias3="${alias3:-tec}"
 
     # Add aliases to RC file
     {
